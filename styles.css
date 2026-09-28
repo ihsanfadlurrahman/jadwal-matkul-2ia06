@@ -1,0 +1,186 @@
+:root {
+  --navy-dark: #1a0d8f;
+  --navy: #2a1bb8;
+  --navy-header: #2617a8;
+  --ink: #17123f;
+  --bg: #f4f5fb;
+  --card-bg: #ffffff;
+  --border: #d9dcef;
+  --muted: #6b6f8d;
+  --accent: #ff9f43;
+  --today-bg: #fff4e6;
+  --today-border: #ff9f43;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+  color: #fff;
+  text-align: center;
+  padding: 28px 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(26, 13, 143, 0.25);
+}
+
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.1rem, 3vw, 1.9rem);
+  letter-spacing: 0.5px;
+}
+
+.hero-note {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.table-wrap {
+  margin-top: 28px;
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(20, 15, 80, 0.08);
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  min-width: 900px;
+}
+
+.schedule-table th {
+  background: var(--navy-header);
+  color: #fff;
+  padding: 16px 12px;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.schedule-table td {
+  border: 1px solid var(--border);
+  padding: 14px 12px;
+  vertical-align: top;
+  font-size: 0.9rem;
+  min-width: 150px;
+}
+
+.schedule-table td.empty {
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+  vertical-align: middle;
+}
+
+.course {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.course-name {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.course-time {
+  color: var(--navy);
+  font-weight: 500;
+}
+
+.course-room {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.schedule-table th.today,
+.schedule-table td.today {
+  background: var(--today-bg);
+  box-shadow: inset 0 0 0 2px var(--today-border);
+}
+
+.legend {
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.site-footer {
+  margin-top: 32px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* Mobile: stack as cards */
+@media (max-width: 720px) {
+  .table-wrap {
+    overflow-x: visible;
+  }
+
+  .schedule-table {
+    min-width: 0;
+    display: block;
+  }
+
+  .schedule-table thead {
+    display: none;
+  }
+
+  .schedule-table tbody {
+    display: block;
+  }
+
+  .schedule-table tr {
+    display: block;
+    margin-bottom: 18px;
+  }
+
+  .schedule-table tr:first-child td:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .schedule-table td {
+    display: block;
+    width: 100%;
+    border-left: 4px solid var(--navy);
+    border-bottom: none;
+  }
+
+  .schedule-table td.today {
+    border-left-color: var(--today-border);
+  }
+
+  .schedule-table td::before {
+    content: attr(data-day-label);
+    display: block;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.5px;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .schedule-table tr td:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+}
