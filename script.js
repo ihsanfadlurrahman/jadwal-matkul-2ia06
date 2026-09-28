@@ -22,7 +22,7 @@ const S = {
       s: "07:30",
       e: "10:30",
       jam: "1/2/3",
-      dosen: "Diana",
+      dosen: "Diana Tri Susetianingtias",
       rooms: [R("G236")],
     },
     {
@@ -30,7 +30,7 @@ const S = {
       s: "11:30",
       e: "13:30",
       jam: "5/6",
-      dosen: "Ika",
+      dosen: "Ika Satya Perdhana",
       rooms: [R("G236")],
     },
     {
@@ -38,7 +38,7 @@ const S = {
       s: "13:30",
       e: "15:30",
       jam: "7/8",
-      dosen: "Pipit",
+      dosen: "Pipit Dewi Arnesia",
       rooms: [R("G216")],
     },
   ],
@@ -48,7 +48,7 @@ const S = {
       s: "07:30",
       e: "09:30",
       jam: "1/2",
-      dosen: "Intan",
+      dosen: "Intan Meutia Sari",
       rooms: [R("E441")],
     },
     {
@@ -56,7 +56,7 @@ const S = {
       s: "09:30",
       e: "11:30",
       jam: "3/4",
-      dosen: "Sandhi",
+      dosen: "Sandhi Prajaka",
       rooms: [R("E441")],
     },
     {
@@ -64,7 +64,7 @@ const S = {
       s: "13:30",
       e: "16:30",
       jam: "7/8/9",
-      dosen: "Maria",
+      dosen: "Maria Ta Dewi",
       rooms: [R("E345")],
     },
   ],
@@ -74,7 +74,7 @@ const S = {
       s: "07:30",
       e: "10:30",
       jam: "1/2/3",
-      dosen: "Aini",
+      dosen: "Aini Suri Talita",
       rooms: [R("E314")],
     },
     {
@@ -82,7 +82,7 @@ const S = {
       s: "11:30",
       e: "13:30",
       jam: "5/6",
-      dosen: "Lilis",
+      dosen: "Lilis Kusnitawati",
       rooms: [R("E139")],
     },
     {
