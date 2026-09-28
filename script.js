@@ -114,9 +114,25 @@ const S = {
   5: [],
 };
 
-const now = new Date(),
-  todayIdx = (now.getDay() + 6) % 7,
-  mins = now.getHours() * 60 + now.getMinutes();
+// Hari & jam sekarang dalam WIB (Asia/Jakarta), apa pun zona waktu perangkat
+const HARI = { Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4, Sat: 5, Sun: 6 };
+let todayIdx = 0,
+  mins = 0;
+function readNow() {
+  const p = {};
+  new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Jakarta",
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  })
+    .formatToParts(new Date())
+    .forEach((x) => (p[x.type] = x.value));
+  todayIdx = HARI[p.weekday];
+  mins = +p.hour * 60 + +p.minute;
+}
+readNow();
 const toM = (t) => {
   const [h, m] = t.split(":");
   return +h * 60 + +m;
@@ -162,17 +178,21 @@ function roomDetail(c) {
     .join("");
 }
 
+const isLive = (i, c) =>
+  i === todayIdx && mins >= toM(c.s) && mins < toM(c.e);
+
 const tabs = document.getElementById("tabs"),
   out = document.getElementById("out");
 let sel = todayIdx < 6 ? todayIdx : "all";
+let manual = false; // true kalau pengguna sudah memilih tab sendiri
 
 function dayHTML(i) {
   const items = S[i];
   let h = `<section class="day"><h2>${D[i]}${i === todayIdx ? '<span class="badge">Hari ini</span>' : ""}</h2>`;
   if (!items.length) h += '<div class="empty">Tidak ada mata kuliah</div>';
-  items.forEach((c) => {
-    const live = i === todayIdx && mins >= toM(c.s) && mins < toM(c.e);
-    h += `<details class="item${live ? " live" : ""}"><summary><div class="time">${c.s}<small>sampai ${c.e}</small></div><div><div class="name">${c.n}${live ? ' <span class="badge">Berlangsung</span>' : ""}</div><div class="meta">${roomBrief(c)} · ${c.dosen}</div></div></summary>
+  items.forEach((c, k) => {
+    const live = isLive(i, c);
+    h += `<details data-key="${i}-${k}" class="item${live ? " live" : ""}"><summary><div class="time">${c.s}<small>sampai ${c.e}</small></div><div><div class="name">${c.n}${live ? ' <span class="badge">Berlangsung</span>' : ""}</div><div class="meta">${roomBrief(c)} · ${c.dosen}</div></div></summary>
     <div class="detail"><dl>
       <dt>Hari</dt><dd>${D[i]}</dd>
       <dt>Waktu</dt><dd>${c.s} – ${c.e} WIB (${dur(c)})</dd>
@@ -185,6 +205,9 @@ function dayHTML(i) {
 }
 
 function render() {
+  const opened = [...out.querySelectorAll("details[open]")].map(
+    (d) => d.dataset.key,
+  );
   tabs.innerHTML = ["all", 0, 1, 2, 3, 4, 5]
     .map(
       (k) =>
@@ -193,12 +216,44 @@ function render() {
     .join("");
   out.innerHTML =
     sel === "all" ? D.map((_, i) => dayHTML(i)).join("") : dayHTML(sel);
+  opened.forEach((k) => {
+    const d = out.querySelector(`details[data-key="${k}"]`);
+    if (d) d.open = true;
+  });
 }
 
 tabs.addEventListener("click", (e) => {
   const b = e.target.closest("button");
   if (!b) return;
+  manual = true;
   sel = b.dataset.k === "all" ? "all" : +b.dataset.k;
   render();
 });
-render();
+
+// Tanda unik kondisi sekarang: hari + kuliah yang sedang berlangsung
+const signature = () =>
+  todayIdx +
+  "|" +
+  D.map((_, i) =>
+    S[i].map((c, k) => (isLive(i, c) ? i + "-" + k : "")).join(""),
+  ).join("");
+
+let lastSig = "",
+  lastDay = todayIdx;
+function tick() {
+  readNow();
+  if (todayIdx !== lastDay) {
+    lastDay = todayIdx;
+    if (!manual) sel = todayIdx < 6 ? todayIdx : "all"; // ikut ganti hari
+  }
+  const sig = signature();
+  if (sig !== lastSig) {
+    lastSig = sig;
+    render();
+  }
+}
+tick();
+setInterval(tick, 30000);
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) tick();
+});
