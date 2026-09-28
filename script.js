@@ -1,56 +1,119 @@
 const D = ["Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
+
+// Data jadwal. Tiap mata kuliah:
+// n = nama, s = mulai, e = selesai, jam = kode jam/sesi,
+// dosen = nama dosen, rooms = daftar lokasi
+// (code = kode ruang, label = nama tampilan, p = pertemuan, mode = tatap muka/online)
+const R = (c, x = {}) => ({ code: c, ...x });
 const S = {
-  0: [["Komputasi Big Data", "10:00", "11:30", "", "UGTV / Team Teaching"]],
+  0: [
+    {
+      n: "Komputasi Big Data",
+      s: "10:00",
+      e: "11:30",
+      jam: "",
+      dosen: "Team Teaching",
+      rooms: [{ label: "UGTV" }],
+    },
+  ],
   1: [
-    ["Struktur Data**", "07:30", "10:30", "1/2/3", "Ruang G236 · Diana"],
-    ["Informatika Kesehatan", "11:30", "13:30", "5/6", "Ruang G236 · Ika"],
-    ["Pengantar Sains Data**", "13:30", "15:30", "7/8", "Ruang G216 · Pipit"],
+    {
+      n: "Struktur Data**",
+      s: "07:30",
+      e: "10:30",
+      jam: "1/2/3",
+      dosen: "Diana",
+      rooms: [R("G236")],
+    },
+    {
+      n: "Informatika Kesehatan",
+      s: "11:30",
+      e: "13:30",
+      jam: "5/6",
+      dosen: "Ika",
+      rooms: [R("G236")],
+    },
+    {
+      n: "Pengantar Sains Data**",
+      s: "13:30",
+      e: "15:30",
+      jam: "7/8",
+      dosen: "Pipit",
+      rooms: [R("G216")],
+    },
   ],
   2: [
-    [
-      "Legal Aspek Produk TI & Komunikasi",
-      "07:30",
-      "09:30",
-      "1/2",
-      "Ruang E441 · Intan",
-    ],
-    [
-      "Organisasi Sistem Komputer */**",
-      "09:30",
-      "11:30",
-      "3/4",
-      "Ruang E441 · Sandhi",
-    ],
-    ["Matematika Lanjut 1", "13:30", "16:30", "7/8/9", "Ruang E345 · Maria"],
+    {
+      n: "Legal Aspek Produk TI & Komunikasi",
+      s: "07:30",
+      e: "09:30",
+      jam: "1/2",
+      dosen: "Intan",
+      rooms: [R("E441")],
+    },
+    {
+      n: "Organisasi Sistem Komputer */**",
+      s: "09:30",
+      e: "11:30",
+      jam: "3/4",
+      dosen: "Sandhi",
+      rooms: [R("E441")],
+    },
+    {
+      n: "Matematika Lanjut 1",
+      s: "13:30",
+      e: "16:30",
+      jam: "7/8/9",
+      dosen: "Maria",
+      rooms: [R("E345")],
+    },
   ],
   3: [
-    [
-      "Matematika Informatika 3",
-      "07:30",
-      "10:30",
-      "1/2/3",
-      "Ruang E314 · Aini",
-    ],
-    [
-      "Algoritma & Pemrograman 3*",
-      "11:30",
-      "13:30",
-      "5/6",
-      "Ruang E139 · Lilis",
-    ],
-    ["Statistika 1", "14:30", "17:30", "8/9/10", "Ruang E441 · Intan"],
+    {
+      n: "Matematika Informatika 3",
+      s: "07:30",
+      e: "10:30",
+      jam: "1/2/3",
+      dosen: "Aini",
+      rooms: [R("E314")],
+    },
+    {
+      n: "Algoritma & Pemrograman 3*",
+      s: "11:30",
+      e: "13:30",
+      jam: "5/6",
+      dosen: "Lilis",
+      rooms: [R("E139")],
+    },
+    {
+      n: "Statistika 1",
+      s: "14:30",
+      e: "17:30",
+      jam: "8/9/10",
+      dosen: "Sri Rakhmawati",
+      rooms: [R("E139")],
+    },
   ],
   4: [
-    [
-      "Praktikum Komputasi Big Data",
-      "07:30",
-      "09:30",
-      "Sesi 1",
-      "V-Class & DGX",
-    ],
+    {
+      n: "Praktikum Komputasi Big Data",
+      s: "07:30",
+      e: "09:30",
+      jam: "Sesi 1",
+      dosen: "Tim Dosen",
+      rooms: [
+        R("F5601", {
+          label: "Lab. F5601",
+          p: "M1, M3, M5, M7",
+          mode: "Tatap muka",
+        }),
+        { label: "V-Class", p: "M2, M4, M6, M8", mode: "Online" },
+      ],
+    },
   ],
   5: [],
 };
+
 const now = new Date(),
   todayIdx = (now.getDay() + 6) % 7,
   mins = now.getHours() * 60 + now.getMinutes();
@@ -58,19 +121,69 @@ const toM = (t) => {
   const [h, m] = t.split(":");
   return +h * 60 + +m;
 };
+
+// E342 -> Kampus E · Gedung 3 · Lantai 4 · Ruang 2
+function loc(code) {
+  const m = /^([A-Z])(\d)(\d)(\d{1,2})$/.exec(code || "");
+  return m
+    ? `Kampus ${m[1]} · Gedung ${m[2]} · Lantai ${m[3]} · Ruang ${+m[4]}`
+    : "";
+}
+
+// "1/2/3" -> "Jam ke-1 sampai 3", "Sesi 1" tetap
+function jamText(j) {
+  if (!j) return "";
+  if (!/^\d/.test(j)) return j;
+  const a = j.split("/");
+  return a.length > 1
+    ? `Jam ke-${a[0]} sampai ${a[a.length - 1]}`
+    : `Jam ke-${a[0]}`;
+}
+
+function dur(c) {
+  const d = toM(c.e) - toM(c.s);
+  const h = Math.floor(d / 60),
+    m = d % 60;
+  return (h ? h + " jam" : "") + (h && m ? " " : "") + (m ? m + " menit" : "");
+}
+
+function roomBrief(c) {
+  return c.rooms
+    .map((r) => (r.label || r.code) + (r.p ? ` (${r.p.replace(/ /g, "")})` : ""))
+    .join(" · ");
+}
+
+function roomDetail(c) {
+  return c.rooms
+    .map(
+      (r) =>
+        `<div class="loc"><b>${r.label || "Ruang " + r.code}${r.mode ? " · " + r.mode : ""}</b>${r.p ? `<span>Pertemuan ${r.p}</span><br>` : ""}${r.code ? `<span>Ruang ${r.code} = ${loc(r.code)}</span>` : ""}</div>`,
+    )
+    .join("");
+}
+
 const tabs = document.getElementById("tabs"),
   out = document.getElementById("out");
 let sel = todayIdx < 6 ? todayIdx : "all";
+
 function dayHTML(i) {
   const items = S[i];
   let h = `<section class="day"><h2>${D[i]}${i === todayIdx ? '<span class="badge">Hari ini</span>' : ""}</h2>`;
   if (!items.length) h += '<div class="empty">Tidak ada mata kuliah</div>';
   items.forEach((c) => {
-    const live = i === todayIdx && mins >= toM(c[1]) && mins < toM(c[2]);
-    h += `<div class="item${live ? " live" : ""}"><div class="time">${c[1]}<small>sampai ${c[2]}</small></div><div><div class="name">${c[0]}${live ? ' <span class="badge">Berlangsung</span>' : ""}</div><div class="meta">${c[4]}</div>${c[3] ? `<div class="tags"><span class="tag">${/^\d/.test(c[3]) ? "Jam ke-" : ""}${c[3]}</span></div>` : ""}</div></div>`;
+    const live = i === todayIdx && mins >= toM(c.s) && mins < toM(c.e);
+    h += `<details class="item${live ? " live" : ""}"><summary><div class="time">${c.s}<small>sampai ${c.e}</small></div><div><div class="name">${c.n}${live ? ' <span class="badge">Berlangsung</span>' : ""}</div><div class="meta">${roomBrief(c)} · ${c.dosen}</div></div></summary>
+    <div class="detail"><dl>
+      <dt>Hari</dt><dd>${D[i]}</dd>
+      <dt>Waktu</dt><dd>${c.s} – ${c.e} WIB (${dur(c)})</dd>
+      ${c.jam ? `<dt>Jam kuliah</dt><dd>${jamText(c.jam)}</dd>` : ""}
+      <dt>Dosen</dt><dd>${c.dosen}</dd>
+      <dt>Lokasi</dt><dd>${roomDetail(c)}</dd>
+    </dl></div></details>`;
   });
   return h + "</section>";
 }
+
 function render() {
   tabs.innerHTML = ["all", 0, 1, 2, 3, 4, 5]
     .map(
@@ -81,6 +194,7 @@ function render() {
   out.innerHTML =
     sel === "all" ? D.map((_, i) => dayHTML(i)).join("") : dayHTML(sel);
 }
+
 tabs.addEventListener("click", (e) => {
   const b = e.target.closest("button");
   if (!b) return;
