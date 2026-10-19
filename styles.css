@@ -1,3 +1,12 @@
+/* ===========================================================
+   2IA06 — papan jadwal kuliah
+   Konsep: papan keberangkatan (departure board). Jadwal kuliah
+   pada dasarnya adalah tabel waktu, jadi tampilannya mengambil
+   bentuk papan split-flap: dasar gelap, angka jam tegas dengan
+   lebar tetap, satu warna aksen (kuning gading) untuk kelas yang
+   sedang berjalan. Baris rapat bergaris tipis, bukan kartu bulat.
+   =========================================================== */
+
 :root {
   --ground: #0b1322;
   --panel: #111d32;
