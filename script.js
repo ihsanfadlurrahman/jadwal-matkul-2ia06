@@ -211,7 +211,12 @@ function fmtRemain(m) {
 }
 
 // E342 -> Kampus E · Gedung 3 · Lantai 4 · Ruang 2
+// Kampus F4 pakai pola lain: F4 + lantai + ruang, selalu Gedung 1
+// F491 -> Kampus F4 · Gedung 1 · Lantai 9 · Ruang 1
+// F4111 -> Kampus F4 · Gedung 1 · Lantai 11 · Ruang 1
 function loc(code) {
+  const f4 = /^F4(\d{1,2})(\d)$/.exec(code || "");
+  if (f4) return `Kampus F4 · Gedung 1 · Lantai ${f4[1]} · Ruang ${f4[2]}`;
   const m = /^([A-Z])(\d)(\d)(\d{1,2})$/.exec(code || "");
   return m
     ? `Kampus ${m[1]} · Gedung ${m[2]} · Lantai ${m[3]} · Ruang ${+m[4]}`
