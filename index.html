@@ -6,27 +6,36 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>Jadwal Kuliah Semester 3 – 2IA06</title>
+    <title>2IA06 · Jadwal Kuliah Semester 3</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
-    <header>
+    <header class="masthead">
       <div class="wrap">
-        <h1>Jadwal Perkuliahan Semester 3</h1>
-        <p>Kelas 2IA06 · jadwal bisa berubah seiring waktu</p>
+        <h1>2IA06</h1>
+        <p class="sub">Jadwal kuliah semester 3. *Bisa berubah sewaktu-waktu.</p>
       </div>
     </header>
-    <nav><div class="wrap" id="tabs" role="tablist"></div></nav>
-    <main>
-      <div class="wrap" id="out"></div>
-      <p class="wrap note">
-        Ketuk mata kuliah untuk melihat detail.
-      </p>
+
+    <section class="wrap" aria-live="polite">
+      <div class="board-now" id="now"></div>
+    </section>
+
+    <nav class="days wrap" id="tabs" role="tablist"></nav>
+
+    <main class="wrap">
+      <div id="out"></div>
     </main>
+
+    <footer class="wrap foot">
+      <p>Ketuk kelas untuk melihat ruang dan dosen.</p>
+    </footer>
+
     <script src="script.js"></script>
   </body>
 </html>
