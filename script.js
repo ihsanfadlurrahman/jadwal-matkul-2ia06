@@ -323,7 +323,6 @@ function dayHTML(i) {
       <dt>Waktu</dt><dd>${c.s} – ${c.e} WIB (${dur(c)})</dd>
       ${c.jam ? `<dt>Jam kuliah</dt><dd>${jamText(c.jam)}</dd>` : ""}
       ${c.dosen ? `<dt>Dosen</dt><dd>${c.dosen}</dd>` : ""}
-      ${c.kode ? `<dt>Kode kelas</dt><dd>${c.kode}</dd>` : ""}
       <dt>Lokasi</dt><dd>${roomDetail(c)}</dd>
       ${c.names ? `<dt>Peserta (${c.names.length})</dt><dd><ol class="names">${c.names.map((x) => `<li>${x.nama}<span>${x.npm}</span></li>`).join("")}</ol></dd>` : ""}
     </dl></div></details>`;
