@@ -216,7 +216,7 @@ function fmtRemain(m) {
 // F4111 -> Kampus F4 · Gedung 1 · Lantai 11 · Ruang 1
 function loc(code) {
   const f4 = /^F4(\d{1,2})(\d)$/.exec(code || "");
-  if (f4) return `Kampus F4 · Gedung 1 · Lantai ${f4[1]} · Ruang ${f4[2]}`;
+  if (f4) return `Kampus F4 · Lantai ${f4[1]} · Ruang ${f4[2]}`;
   // Kampus F5: F5 + lantai + ruang (2 digit), tanpa gedung. F5601 -> Lantai 6 · Ruang 1
   const f5 = /^F5(\d)(\d{2})$/.exec(code || "");
   if (f5) return `Kampus F5 · Lantai ${f5[1]} · Ruang ${+f5[2]}`;
