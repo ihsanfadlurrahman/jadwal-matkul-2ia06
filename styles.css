@@ -46,7 +46,7 @@ body {
 
 /* ---------- Header ---------- */
 .masthead {
-  padding: 32px 0 20px;
+  padding: 28px 0 18px;
   border-bottom: 1px solid var(--line-soft);
 }
 .masthead h1 {
@@ -57,10 +57,24 @@ body {
   letter-spacing: -0.02em;
 }
 .masthead .sub {
-  margin: 6px 0 0;
+  margin: 4px 0 0;
   color: var(--mute);
-  font-size: 0.95rem;
-  max-width: 34ch;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+/* baris 1: keterangan utama */
+.masthead .sub:nth-of-type(1) {
+  margin-top: 10px;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 500;
+}
+/* baris 3: ucapan, dipisah garis tipis supaya tidak menumpuk */
+.masthead .sub:nth-of-type(3) {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 0.8rem;
 }
 
 /* ---------- Pemilih nama ---------- */
