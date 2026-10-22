@@ -107,6 +107,31 @@ body {
   font-size: 0.85rem;
 }
 
+/* ---------- Navigasi halaman (Jadwal / Tugas) ---------- */
+.pages {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+.pages a {
+  color: var(--mute);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 7px 16px;
+  border: 1px solid var(--line);
+}
+.pages a[aria-current="page"] {
+  color: var(--amber-ink);
+  background: var(--amber);
+  border-color: var(--amber);
+  font-weight: 600;
+}
+.pages a:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
 /* ---------- Papan "sekarang" (hero) ---------- */
 .board-now {
   margin-top: 18px;
@@ -327,6 +352,56 @@ details[open] .row-chev {
   color: var(--mute);
   font-size: 0.78rem;
   font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Halaman tugas ---------- */
+.task {
+  padding: 14px 4px 16px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.task-urgent {
+  background: var(--panel-2);
+  box-shadow: inset 3px 0 0 var(--amber);
+  padding-left: 14px;
+}
+.task-late {
+  opacity: 0.55;
+}
+.task-course {
+  margin: 0;
+  color: var(--mute);
+  font-size: 0.82rem;
+}
+.task-title {
+  margin: 2px 0 6px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.task-due {
+  margin: 0;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+.task-left {
+  display: inline-block;
+  margin-left: 6px;
+  color: var(--mute);
+}
+.task-urgent .task-left {
+  color: var(--amber);
+  font-weight: 600;
+}
+.task-note {
+  margin: 8px 0 0;
+  color: var(--mute);
+  font-size: 0.88rem;
+}
+.task-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--amber);
+  font-size: 0.88rem;
+  font-weight: 600;
 }
 
 .empty {
