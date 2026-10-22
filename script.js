@@ -110,6 +110,22 @@ const S = {
         { label: "V-Class", p: "M2, M4, M6, M8", mode: "Online" },
       ],
     },
+    {
+      n: "PAP 3A",
+      s: "13:30",
+      e: "15:30",
+      jam: "Sesi 4",
+      dosen: "",
+      rooms: [R("F8427")],
+    },
+    {
+      n: "PAP 3B",
+      s: "15:30",
+      e: "17:30",
+      jam: "Sesi 5",
+      dosen: "",
+      rooms: [R("F8427")],
+    },
   ],
   5: [],
 };
@@ -216,7 +232,11 @@ function fmtRemain(m) {
 // F4111 -> Kampus F4 · Gedung 1 · Lantai 11 · Ruang 1
 function loc(code) {
   const f4 = /^F4(\d{1,2})(\d)$/.exec(code || "");
-  if (f4) return `Kampus F4 · Lantai ${f4[1]} · Ruang ${f4[2]}`;
+  if (f4) return `Kampus F4 · Gedung 1 · Lantai ${f4[1]} · Ruang ${f4[2]}`;
+  // Kampus F8: F8 + gedung + lantai + ruang. F8427 -> Gedung 4 · Lantai 2 · Ruang 7
+  const f8 = /^F8(\d)(\d)(\d{1,2})$/.exec(code || "");
+  if (f8)
+    return `Kampus F8 · Gedung ${f8[1]} · Lantai ${f8[2]} · Ruang ${+f8[3]}`;
   // Kampus F5: F5 + lantai + ruang (2 digit), tanpa gedung. F5601 -> Lantai 6 · Ruang 1
   const f5 = /^F5(\d)(\d{2})$/.exec(code || "");
   if (f5) return `Kampus F5 · Lantai ${f5[1]} · Ruang ${+f5[2]}`;
