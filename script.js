@@ -111,7 +111,7 @@ const S = {
       ],
     },
     {
-      n: "PAP 3A",
+      n: "Praktikum Algoritma Pemrograman 3A",
       s: "13:30",
       e: "15:30",
       jam: "Sesi 4",
@@ -119,7 +119,7 @@ const S = {
       rooms: [R("F8427")],
     },
     {
-      n: "PAP 3B",
+      n: "Praktikum Algoritma Pemrograman 3B",
       s: "15:30",
       e: "17:30",
       jam: "Sesi 5",
