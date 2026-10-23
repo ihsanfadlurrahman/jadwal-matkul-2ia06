@@ -43,6 +43,20 @@ const TUGAS = [
     ket: "Moda Self Study Pertemuan ke-4",
     link: "https://v-class.gunadarma.ac.id/course/view.php?id=24",
   },
+  {
+    matkul: "Praktikum Algoritma Pemrograman 3A",
+    judul: "Laporan Akhir Praktikum",
+    deadline: "2026-10-28 23:59",
+    ket: "",
+    link: "https://praktikum-iflab.gunadarma.ac.id/course/view.php?id=800",
+  },
+  {
+    matkul: "Praktikum Algoritma Pemrograman 3B",
+    judul: "Laporan Akhir Praktikum",
+    deadline: "2026-10-28 23:59",
+    ket: "",
+    link: "https://praktikum-iflab.gunadarma.ac.id/course/view.php?id=355",
+  }
 ];
 
 // ---------- Tampilan ----------
