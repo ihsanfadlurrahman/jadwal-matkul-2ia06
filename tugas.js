@@ -56,7 +56,14 @@ const TUGAS = [
     deadline: "2026-10-28 23:59",
     ket: "",
     link: "https://praktikum-iflab.gunadarma.ac.id/course/view.php?id=355",
-  }
+  },
+  {
+    matkul: "Informatika Kesehatan",
+    judul: "Tugas Analisis Studi Kasus",
+    deadline: "2026-10-28 23:59",
+    ket: "Menganalisis Studi Kasus pada foto yang diberikan digrup Informatika Kesehatan, dan wajib ditulis tangan.",
+    link: "",
+  },
 ];
 
 // ---------- Tampilan ----------
